@@ -20,18 +20,18 @@ public class Permanente extends Empleado {
                 + antiguedad()
                 - descuentos();
     }
-
+@Override
     protected float salarioFamiliar() {
         //lógica de calculo de sueldo por hijo
         return 0;
     }
-
-    private float antiguedad() {
+@Override
+    protected float antiguedad() {
         //lógica de calculo segun antiguedad
         return 0;
     }
-
-    private float descuentos() {
+@Override
+    protected float descuentos() {
         //lógica de calculo de obra social y jubilacion
         return 0f;
     }

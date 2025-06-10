@@ -6,7 +6,9 @@ public class CuentaCorriente extends CuentaBancaria {
     }
 
     @Override
-    public void extraer(float saldoARetirar) {
-        saldo -= saldoARetirar;
+    protected boolean puedoExtraer(float saldoARetirar) {
+        return true;
     }
+
+
 }

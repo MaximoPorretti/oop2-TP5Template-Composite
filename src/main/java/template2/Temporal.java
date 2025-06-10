@@ -13,7 +13,7 @@ public class Temporal extends Empleado {
         return super.sueldo(horasTrabajadas)
                 + salarioFamiliar();
     }
-
+@Override
     protected float salarioFamiliar() {
         //lógica de calculo de sueldo por hijo
         return 0;

@@ -1,8 +1,7 @@
 package template1;
 
 public abstract class CuentaBancaria {
-
-    protected float saldo;
+protected float saldo;
 
     public CuentaBancaria(float saldo) {
         this.saldo = saldo;
@@ -12,5 +11,15 @@ public abstract class CuentaBancaria {
         return this.saldo;
     }
 
-    public abstract void extraer(float saldoARetirar);
+    public void extraer(float saldoARetirar){
+
+        if (puedoExtraer(saldoARetirar)) {
+            this.saldo -= saldoARetirar;
+        }
+    }
+
+    protected abstract boolean puedoExtraer(float saldoARetirar);
+
+
+
 }

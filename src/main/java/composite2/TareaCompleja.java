@@ -3,23 +3,25 @@ package composite2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TareaCompleja {
+public class TareaCompleja implements ItemDeProyecto {
     private String nombre;
-    private List<Object> subtareas = new ArrayList<>(); // No hay herencia común, usamos Object
-
-    public TareaCompleja(String nombre) {
+    private List<ItemDeProyecto> subtareas = new ArrayList<>(); // No hay herencia común, usamos Object
+   private final PrintConsola printer;
+    public TareaCompleja(String nombre, PrintConsola printer) {
         this.nombre = nombre;
+        this.printer = printer;
     }
 
-    public void agregarSubtarea(Object tarea) {
-        subtareas.add(tarea);
+
+    @Override
+    public void printItem(String indent) {
+        this.printer.println(indent + "+ " + nombre);
+        for (ItemDeProyecto sub : subtareas) {
+            sub.printItem(indent + "  ");
+        }
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public List<Object> getSubtareas() {
-        return subtareas;
+    public void agregarSubtarea(Tarea correrTestsManuales) {
+        subtareas.add(correrTestsManuales);
     }
 }
