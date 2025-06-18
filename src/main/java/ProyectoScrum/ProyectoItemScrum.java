@@ -1,6 +1,5 @@
 package ProyectoScrum;
 
-import java.time.LocalDate;
 /*
 2. Un Proyecto en Scrum está compuesto de muchos ítems de trabajo. Un ítem del
 proyecto puede ser una historia de usuario, y las historias se componen de tareas.
@@ -12,6 +11,6 @@ b) Implemente la solución en Java y escriba dos casos de test.
 
  */
 
-public interface ProyectoItem {
+public interface ProyectoItemScrum {
     int tiempoEstimado();
 }

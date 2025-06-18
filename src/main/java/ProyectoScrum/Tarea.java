@@ -2,7 +2,7 @@ package ProyectoScrum;
 
 
 
-public class Tarea implements ProyectoItem{
+public class Tarea implements ProyectoItemScrum {
     private String Comentario;
     private int tiempo;
 
