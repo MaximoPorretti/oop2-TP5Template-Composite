@@ -12,6 +12,6 @@ b) Implemente la solución en Java y dos casos de prueba.
  */
 // Componente
 public interface Seguro {
-    double getCostoBase();
-    double calcularCosto();
+    double getCostoBase();     // suma bruta sin descuentos
+    double calcularCosto();    // suma con descuentos aplicados
 }

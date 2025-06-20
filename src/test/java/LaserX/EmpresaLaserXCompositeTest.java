@@ -6,30 +6,33 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmpresaLaserXCompositeTest {
 
     @Test
     @DisplayName("Caso 1: solo empleados regulares")
     void salarioTotalSoloRegulares() {
-        Empleado e1 = new EmpleadoRegular("Ana", 1_000);
-        Empleado e2 = new EmpleadoRegular("Juan", 1_200);
+        Empleado e1 = new EmpleadoRegular("Anabella", 1000);
+        Empleado e2 = new EmpleadoRegular("luisino", 1200);
 
         double total = e1.calcularSalarioTotal() + e2.calcularSalarioTotal();
 
-        assertEquals(2_200, total, 0.0001,
-                "La suma de dos empleados regulares debería ser 2 200");
+        assertEquals(2200, total);
     }
 
     @Test
     @DisplayName("Caso 2: jerarquía completa (Composite)")
     void salarioTotalJerarquiaCompleta() {
-        Director      dir   = new Director("Director", 5_000);
-        Gerente       gte   = new Gerente ("Gerente",  3_000);
-        MandoMedio    mm    = new MandoMedio("MM",     2_000);
-        LiderProyecto lider = new LiderProyecto("Líder",1_500);
-        Empleado      r1    = new EmpleadoRegular("Emp1", 1_000);
-        Empleado      r2    = new EmpleadoRegular("Emp2", 1_100);
+        Director      dir   = new Director("Director", 5000);
+        Gerente       gte   = new Gerente ("Gerente",  3000);
+        MandoMedio    mm    = new MandoMedio("MM",     2000);
+        LiderProyecto lider = new LiderProyecto("Líder",1500);
+        Empleado      r1    = new EmpleadoRegular("Emp1", 1000);
+        Empleado      r2    = new EmpleadoRegular("Emp2", 1100);
 
         // armamos la jerarquía
         lider.agregarSubordinado(r1);
@@ -38,11 +41,10 @@ public class EmpresaLaserXCompositeTest {
         gte.agregarSubordinado(mm);
         dir.agregarSubordinado(gte);
 
-        double esperado = 13_600;  // 5000 + 3000 + 2000 + 1500 + 1000 + 1100
+        double esperado = 13600;
         double obtenido = dir.calcularSalarioTotal();
 
-        assertEquals(esperado, obtenido, 0.0001,
-                "El salario total de la empresa completa debería ser 13 600");
+        assertEquals(esperado, obtenido);
     }
 
     @Test
@@ -58,8 +60,7 @@ public class EmpresaLaserXCompositeTest {
         double esperado = 40000 + 25000 + 27000; // Salario del líder + salarios de empleados
         double obtenido = lider.calcularSalarioTotal();
 
-        assertEquals(esperado, obtenido, 0.0001,
-                "El salario total del Líder de Proyecto debería incluir el de sus subordinados.");
+        assertEquals(esperado, obtenido);
     }
 
     @Test
@@ -86,7 +87,6 @@ public class EmpresaLaserXCompositeTest {
         double esperado = 70000 + 50000 + 35000 + 20000 + 22000 + 38000 + 23000;
         double obtenido = gerente.calcularSalarioTotal();
 
-        assertEquals(esperado, obtenido, 0.0001,
-                "El salario total del Gerente debería incluir toda la sub-jerarquía.");
+        assertEquals(esperado, obtenido);
     }
 }

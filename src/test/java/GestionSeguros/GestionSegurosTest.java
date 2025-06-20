@@ -5,45 +5,43 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GestionSegurosTest {
-        @Test
-        void testSeguroSimple() {
-            Seguro hogar = new SeguroSimple("Hogar", 10000);
-            assertEquals(10000, hogar.calcularCosto());
-        }
 
         @Test
-        void testPaqueteConDescuento() {
-            Seguro auto = new SeguroSimple("Auto", 15000);
-            Seguro vida = new SeguroSimple("Vida", 20000);
+        public void testPaqueteCon2SegurosSimples() {
+            Seguro auto = new SeguroSimple("Auto", 1000);
+            Seguro hogar = new SeguroSimple("Hogar", 500);
 
             PaqueteSeguro paquete = new PaqueteSeguro();
             paquete.agregar(auto);
-            paquete.agregar(vida);
+            paquete.agregar(hogar);
 
-            // total base: 15000 + 20000 = 35000
-            // descuento: 5% * 2 = 10%
-            // esperado: 35000 * 0.90 = 31500
-            assertEquals(31500, paquete.calcularCosto(), 0.01);
+            int esperado1 = (int) ((1000 + 500) * 0.90); // 10% de descuento por 2 seguros
+           int resultado1= (int) paquete.calcularCosto();
+           int esperado2 = 1500;
+              int resultado2 = (int) paquete.getCostoBase(); // costo base sin descuento
+            assertEquals(esperado1, resultado1);
+            assertEquals(esperado2, resultado2);
         }
 
         @Test
-        void testPaqueteAnidado() {
-            Seguro medico = new SeguroSimple("Médico", 12000);
-            Seguro hogar = new SeguroSimple("Hogar", 8000);
+        public void testPaqueteAnidadoConSubPaquete() {
+            Seguro vida = new SeguroSimple("Vida", 800);
+            Seguro medico = new SeguroSimple("Médico", 600);
 
             PaqueteSeguro subPaquete = new PaqueteSeguro();
+            subPaquete.agregar(vida);
             subPaquete.agregar(medico);
-            subPaquete.agregar(hogar); // total: 20000 -> con 10% descuento = 18000
 
-            Seguro auto = new SeguroSimple("Auto", 10000);
 
-            PaqueteSeguro paqueteGrande = new PaqueteSeguro();
-            paqueteGrande.agregar(subPaquete); // 18000
-            paqueteGrande.agregar(auto);       // 10000
+            Seguro auto = new SeguroSimple("Auto", 1000);
 
-            // base total: 18000 + 10000 = 28000
-            // descuento: 5% * 2 = 10% → 28000 * 0.90 = 25200
-            assertEquals(25200, paqueteGrande.calcularCosto(), 0.01);
+            PaqueteSeguro paqueteFinal = new PaqueteSeguro();
+            paqueteFinal.agregar(subPaquete); // cuenta como 1
+            paqueteFinal.agregar(auto);       // cuenta como 2 → 10% descuento
+
+            int esperado = (int) ((1260 + 1000) * 0.90);
+            int resultado = (int) paqueteFinal.calcularCosto();
+            assertEquals(esperado,resultado);
         }
     }
 

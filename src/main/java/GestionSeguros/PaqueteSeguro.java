@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Compuesto: paquete de seguros (puede contener otros paquetes)
+import java.util.ArrayList;
+import java.util.List;
+
 public class PaqueteSeguro implements Seguro {
     private List<Seguro> seguros = new ArrayList<>();
 
@@ -13,10 +16,9 @@ public class PaqueteSeguro implements Seguro {
 
     @Override
     public double getCostoBase() {
-        // suma sin aplicar descuento
         double total = 0;
         for (Seguro s : seguros) {
-            total += s.calcularCosto();  // ya puede traer descuentos internos
+            total += s.calcularCosto();  // se asume que ya trae descuentos si es subpaquete
         }
         return total;
     }
@@ -24,9 +26,8 @@ public class PaqueteSeguro implements Seguro {
     @Override
     public double calcularCosto() {
         double base = getCostoBase();
-        double descuentoTotal = 0.05 * seguros.size(); // 5% por cada seguro contenido
-        double factorDescuento = 1.0 - descuentoTotal;
-        if (factorDescuento < 0) factorDescuento = 0; // nunca menor a 0
-        return base * factorDescuento;
+        double descuento = 0.05 * seguros.size();  // 5% por cada elemento directo
+        double factor = Math.max(0, 1.0 - descuento); // evita valores negativos
+        return base * factor;
     }
 }
